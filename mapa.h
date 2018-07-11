@@ -5,7 +5,7 @@ typedef struct Mapa mapa;
 struct Casa {
 	int local;
 	int estado;
-	casa *direcao;
+	int direcao[4];
 	int sinal;
 };
 struct Mapa {

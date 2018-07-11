@@ -1,5 +1,5 @@
 #define TAMANHO_DO_MAPA 19
 
-typedef struct Casa casa;
+typedef struct Mapa mapa;
 
-void desenhaMapa(casa *cidade[][TAMANHO_DO_MAPA]);			//desenha o mapa na tela
+void desenhaMapa(mapa *cidade);			//desenha o mapa na tela
