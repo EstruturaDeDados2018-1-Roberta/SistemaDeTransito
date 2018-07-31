@@ -4,40 +4,117 @@
 #include "utilitarios.h"
 
 casa* criaCasa(int local, int estado, int direcao[4], int sinal) {
-	a = 0;
+	int a = 0;
 	casa *novaCasa = (casa*)malloc(sizeof(casa));
 	novaCasa->local = local;
 	novaCasa->estado = estado;
-	novaCasa->direcao = direcao;
+	for(a = 0; a < 4; a++) {
+		novaCasa->direcao[a] = direcao[a];
+	}
 	novaCasa->sinal = sinal;
+	return novaCasa;
 }
 
 mapa* criaMapa() {
 	mapa *novoMapa = (mapa*)malloc(sizeof(mapa));
-	int a = 0, b = 0;
-	for(a = 0; a < TAMANHO_DO_MAPA; a++) {
-		for(b = 0; b < TAMANHO_DO_MAPA; b++) {
-			if(a % 6 == 0 && b % 6 == 0) {
-				novoMapa->casa[a][b] = criaCasa(CRUZAMENTO, VAZIO, {NULO}, NULO);
-			} else {
-				if(a == 0 || a == 6 || a == 12 || a == 18) {
-					if(b == 1 || b == 5 || b == 7 || b == 11 || b == 13 || b == 17) {
-						novoMapa->casa[a][b] = criaCasa(SINAL, VAZIO, {NULO}, AMARELO);
+	int x = 0, y = 0;
+	int norte[4] = {1,0,0,0};
+	int sul[4] = {0,1,0,0};
+	int leste[4] = {0,0,1,0};
+	int oeste[4] = {0,0,0,1};
+	int norteELeste[4] = {1,0,1,0};
+	int norteEOeste[4] = {1,0,0,1};
+	int sulELeste[4] = {0,1,1,0};
+	int sulEOeste[4] = {0,1,0,1};
+	int nulo[4] = {0,0,0,0};
+	for(x = 0; x < TAMANHO_DO_MAPA; x++) {
+		for(y = 0; y < TAMANHO_DO_MAPA; y++) {
+			if(x % 6 == 0 && y % 6 == 0) {
+				if(x == 0) {
+					if(y == 0) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, sul, NULO);
+					} else if(y == 6 || y == 18) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, oeste, NULO);
+					} else if(y == 12) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, sulEOeste, NULO);
 					} else {
-						novoMapa->casa[a][b] = criaCasa(RUA, VAZIO, {NULO}, NULO);
+						printf("\n\tERRO EM CRIAMAPA: POSICAO (%d,%d) NAO MAPEADA", x, y);
 					}
-				} else if(a == 1 || a == 5 || a == 7 || a == 11 || a == 13 || a == 17) {
-					if(b == 0 || b == 6 || b == 12 || b == 18) {
-						novoMapa->casa[a][b] = criaCasa(SINAL, VAZIO, {NULO}, AMARELO);
+				} else if(x == 6) {
+					if(y == 0 || y == 12) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, sulELeste, NULO);
+					} else if(y == 6) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, norteELeste, NULO);
+					} else if(y == 18) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, norte, NULO);
 					} else {
-						novoMapa->casa[a][b] = criaCasa(CONSTRUCAO, NULO, {NULO}, AMARELO);
+						printf("\n\tERRO EM CRIAMAPA: POSICAO (%d,%d) NAO MAPEADA", x, y);
+					}
+				} else if(x == 12) {
+					if(y == 0) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, sul, NULO);
+					} else if(y == 6 || y == 18) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, norteEOeste, NULO);
+					} else if(y == 12) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, sulEOeste, NULO);
+					} else {
+						printf("\n\tERRO EM CRIAMAPA: POSICAO (%d,%d) NAO MAPEADA", x, y);
+					}
+				} else if(x == 18) {
+					if(y == 0 || y == 12) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, leste, NULO);
+					} else if(y == 6) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, norteELeste, NULO);
+					} else if(y == 18) {
+						novoMapa->casa[x][y] = criaCasa(CRUZAMENTO, VAZIO, norte, NULO);
+					} else {
+						printf("\n\tERRO EM CRIAMAPA: POSICAO (%d,%d) NAO MAPEADA", x, y);
 					}
 				} else {
-					if(b == 0 || b == 6 || b == 12 || b == 18) {
-						novoMapa->casa[a][b] = criaCasa(RUA, VAZIO, {NULO}, NULO);
+					printf("\n\tERRO EM CRIAMAPA: POSICAO (%d,%d) NAO MAPEADA", x, y);
+				}
+			} else {
+				if(x == 0 || x == 12) {
+					if(y == 1 || y == 7 || y == 13) {
+						novoMapa->casa[x][y] = criaCasa(SINAL, VAZIO, oeste, AMARELO);
+					} else if(y != 0 && y != 6 && y != 12 && y != 18) {
+						novoMapa->casa[x][y] = criaCasa(RUA, VAZIO, oeste, NULO);
 					}
+				} else if(x == 1 || x == 7 || x == 13) {
+					if(y == 6 || y == 18) {
+						novoMapa->casa[x][y] = criaCasa(SINAL, VAZIO, norte, AMARELO);
+					} else if(y == 0 || y == 12) {
+						novoMapa->casa[x][y] = criaCasa(RUA, VAZIO, sul, NULO);
+					} else {
+						novoMapa->casa[x][y] = criaCasa(CONSTRUCAO, NULO, nulo, NULO);
+					}
+				} else if(x == 5 || x == 11 || x == 17) {
+					if(y == 0 || y == 12) {
+						novoMapa->casa[x][y] = criaCasa(SINAL, VAZIO, sul, AMARELO);
+					} else if(y == 6 || y == 18) {
+						novoMapa->casa[x][y] = criaCasa(RUA, VAZIO, norte, NULO);
+					} else {
+						novoMapa->casa[x][y] = criaCasa(CONSTRUCAO, NULO, nulo, NULO);
+					}
+				} else if(x == 6 || x == 18) {
+					if(y == 5 || y == 11 || y == 17) {
+						novoMapa->casa[x][y] = criaCasa(SINAL, VAZIO, leste, AMARELO);
+					} else if(y != 0 && y != 6 && y != 12 && y != 18) {
+						novoMapa->casa[x][y] = criaCasa(RUA, VAZIO, leste, NULO);
+					}
+				} else if (x == 2 || x == 3 || x == 4 || x == 8 || x == 9 || x == 10 || x == 14 || x == 15 || x == 16){
+					if(y == 0 || y == 12) {
+						novoMapa->casa[x][y] = criaCasa(RUA, VAZIO, sul, NULO);
+					} else if(y == 6 || y == 18) {
+						novoMapa->casa[x][y] = criaCasa(RUA, VAZIO, norte, NULO);
+					} else {
+						novoMapa->casa[x][y] = criaCasa(CONSTRUCAO, NULO, nulo, NULO);
+					}
+				} else {
+					printf("\n\tERRO EM CRIAMAPA: POSICAO (%d,%d) NAO MAPEADA", x, y);
 				}
 			}
 		}
 	}
+	return novoMapa;
 }

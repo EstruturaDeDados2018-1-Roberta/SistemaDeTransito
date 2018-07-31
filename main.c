@@ -3,10 +3,10 @@
 #include "carro.h"
 #include "interface.h"
 #include "main.h"
-#include "casa.h"
+#include "mapa.h"
 #include "utilitarios.h"
 
 int main() {
-	mapa *cidade[TAMANHO_DO_MAPA][TAMANHO_DO_MAPA];
-	desenhaMapa();
+	mapa *cidade = criaMapa();
+	desenhaMapa(cidade);
 }
