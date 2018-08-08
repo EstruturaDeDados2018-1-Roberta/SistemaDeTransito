@@ -2,25 +2,24 @@
 sistema de trânsito in C
 
 ## Code style contract
-+ Curly braces
-	+ On body function: ***same line with space***
-	+ On if/else/switch or loops: ***same line***
-	+ On structs and enums: ***same line***
-+ Variable and function names: ***Camel case***
-+ Pointer definition has asterisk next to variable name: ```int *pointer```
-+ Naming struct objects: ***typedef struct name_with underscores and, before commas, the usual name***
-+ Constants: ***upper-case words separated by underscores***
-+ Error returns
-	+ Element not found in array: ***return ERR(A constant defined as -1)***
-	+ Element not found in other data structures with pointer objects: ***NULL***
++ Chaves {}
+	+ No corpo da função: ***mesma linha precedido de espaço***
+	+ Em if/else/switch ou loops: ***mesma linha***
+	+ Em structs e enums: ***mesma linha***
++ Variáveis e nomes de funçẽos: ***Camel case*** Ex: semaforoVermelho
++ Definição do ponteiro tem asterisco junto ao nome do ponteiro: ```int *pointer```
++ Nomeando objetos da struct: ***typedef struct nome_sobrenome e antes da vírgula, nome***
++ Constantes: ***VARIAVEL_CONSTANTE***
++ Tratamento de erro
+	+ Elemento não encontrado no vetor: ***return ERR(Uma constante defindia como -1)***
+	+ Elemento não encontrado na estrutura: ***NULL***
 
-+ Miscellaneous: No C99 Code shall be allowed with ***risk of an issue being opened***!!! 
++ Miscelânea: Código de C99 não é permitido. ***Sujeito a abertura de issue pelo github***!!! 
 
 # Contributors
     + Mateus Pereira (http://github.com/Mathousbr)
 	+ Wykthor Cavalcante (https://github.com/wykthor-btracker)
 
-# Implementation tasks and deadlines
-## On comparison tests
-- [] Fazer o pitch para turma         - Deadline: 1/8/18
+# Tarefas de implementação e deadlines
+- [] Fazer o pitch para turma         - Deadline: 8/8/18
 			
